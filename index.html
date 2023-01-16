@@ -706,7 +706,7 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
           <div class="nav-container">
             <div class="nav-inner" id="scroll-spy" style="width: min-content; overflow: auto; top: 60px; bottom: 0; padding 10px 0 10px 0;">
               <span class="toc">Table of contents</span>
-              <ul class="nav"><li class="active"><a href="#Getting-Started">Getting-Started.md</a></li><li><a href="#Home">Home.md</a></li><li><a href="#JavaScript-API-Documentation">JavaScript-API-Documentation.md</a></li><li><a href="#Unity-API-Documentation">Unity-API-Documentation.md</a></li></ul>
+              <ul class="nav"><li class="active"><a href="#Getting-Started">Getting-Started</a></li><li><a href="#Home">Home</a></li><li><a href="#JavaScript-API-Documentation">JavaScript-API-Documentation</a></li><li><a href="#Unity-API-Documentation">Unity-API-Documentation</a></li></ul>
               
             </div>
           </div>
@@ -714,7 +714,7 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
 
 
         <div class="col-md-9">
-<p class="page" id="Getting-Started"></p><h1>Getting-Started.md</h1>
+<p class="page" id="Getting-Started"></p><h1>Getting-Started</h1>
 <h1 id="installation">Installation</h1>
 <p>On this page, there are two parts that are essential for the voice chat application to work properly. the first is hosting the voice chat server. the second is adding the files in your unity game and setting up some variables.</p>
 <h2 id="hosting-the-server">Hosting the server</h2>
@@ -746,7 +746,7 @@ like this</p>
 <p>the way it works is that when the game loads, the VCH (VoiceChatHandler) will instantiate itself and stay persistent throughout the game. On Start, the class will use the provided URLs from the class (in the editor) to do two things.</p>
 <p>the first URL will be used as the domain to connect to the voice chat server, and the other URL will be the location of the voice chat script which will be used to append the script to the current HTML page by unity.</p>
 <p>when the file loads, the class will be ready to be used.</p>
-<p class="page" id="Home"></p><h1>Home.md</h1>
+<p class="page" id="Home"></p><h1>Home</h1>
 <h1 id="unity-webgl-voice-chat-solution">Unity Webgl Voice Chat Solution</h1>
 <p>Welcome to the UnityWebGLVoiceChatServer-Socket.io wiki!</p>
 <p>this wiki is meant to explain the mechanism of how does the software work, document it&#39;s functions and help you getting started.</p>
@@ -757,7 +757,7 @@ like this</p>
 <p>in simple terms, the voice chat is a separate application that runs on your browser, so, it can be used standalone. the twist is that scripts were written in unity, allowing communication between unity and the voice chat application itself.</p>
 <p>so unity communicates with it while the application handles rooms, and people, and fetches the voice from the microphone with transmission over the network.</p>
 <p>the reason it was built this way is that the in-availability of access to the mic in unity for WebGL, alongside the limitation of only TCP/HTTP protocol on the browser prevents the development of a functional voice chat within the unity game on the browser and thus the current solution.</p>
-<p class="page" id="JavaScript-API-Documentation"></p><h1>JavaScript-API-Documentation.md</h1>
+<p class="page" id="JavaScript-API-Documentation"></p><h1>JavaScript-API-Documentation</h1>
 <h1 id="voicechat">VoiceChat</h1>
 <h2 id="constructor">constructor</h2>
 <p>instantiate the class</p>
@@ -817,7 +817,7 @@ like this</p>
 <p>takes a room id and disconnects the current user from the room id provided if they are in that room.</p>
 <h4 id="voicechat-leaveallrooms-">voiceChat.LeaveAllRooms()</h4>
 <p>disconnects the current user from all the rooms they have joined.</p>
-<p class="page" id="Unity-API-Documentation"></p><h1>Unity-API-Documentation.md</h1>
+<p class="page" id="Unity-API-Documentation"></p><h1>Unity-API-Documentation</h1>
 <h1 id="voicechathandler">VoiceChatHandler</h1>
 <p>this class is a singleton that can be used anywhere in a unity game project which handles communication with the voice chat instance of JavaScript in the browser, this is how the Singleton was achieved in unity with mono behavior functionality, <a href="https://gist.github.com/rickyah/271e3aa31ff8079365bc">here</a>.</p>
 <h2 id="attributes">Attributes</h2>
