@@ -1,0 +1,7 @@
+you need this package on your pc.
+
+npm install -g github-wikito-converter
+
+to convert: -
+
+gwtc ./ -n index
