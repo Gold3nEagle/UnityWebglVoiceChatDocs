@@ -834,33 +834,30 @@ like this</p>
 <p>and hence the current events.</p>
 <hr>
 <h3 id="ongetclientsinroom">onGetClientsInRoom</h3>
-<pre class="hljs"><span class="hljs-keyword">public</span> UnityEvent&lt;<span class="hljs-built_in">string</span>&gt; onGetClientsInRoom</pre><p>this event will be triggered after some time from calling &quot;UpdateClientsInRoom(string roomID)&quot; function passing a JSON object with a list of the clients in a specified room as a string.</p>
+<pre class="hljs"><span class="hljs-keyword">public</span> UnityEvent&lt;List&lt;<span class="hljs-built_in">string</span>&gt;&gt; onGetClientsInRoom</pre><p>this event will be triggered after some time from calling &quot;UpdateClientsInRoom(string roomID)&quot; function passing a JSON object with a list of the clients in a specified room as a string.</p>
 <p>example of returned string: -</p>
-<pre class="hljs">{
-  <span class="hljs-string">&quot;clientsInRoom&quot;</span>:[
-    <span class="hljs-string">&quot;someOtherClientID&quot;</span>,
-    ...
-  ]
-}</pre><hr>
+<p><strong>Returns</strong></p>
+<pre class="hljs">List&lt;<span class="hljs-built_in">string</span>&gt;</pre><hr>
 <h3 id="onisspeaking">onIsSpeaking</h3>
-<pre class="hljs"><span class="hljs-keyword">public</span> UnityEvent&lt;<span class="hljs-built_in">string</span>&gt; onIsSpeaking</pre><p>when invoked, returns a string of a JSON with the status of whether is the current client is talking or not.</p>
+<pre class="hljs"><span class="hljs-keyword">public</span> UnityEvent&lt;<span class="hljs-built_in">bool</span>&gt; onIsSpeaking</pre><p>when invoked, returns a string of a JSON with the status of whether is the current client is talking or not.</p>
 <p>tip: this value can be used with other networking framework solutions(mirror, fishnet, smartfox, etc...) to send the player status to other in-game players.</p>
-<pre class="hljs">{
-  <span class="hljs-string">&quot;isSpeaking&quot;</span>: <span class="hljs-literal">true</span>
-}</pre><h2 id="methods">Methods</h2>
+<p><strong>Returns</strong></p>
+<pre class="hljs"><span class="hljs-built_in">bool</span></pre><h2 id="methods">Methods</h2>
 <h3 id="public-methods">Public Methods</h3>
 <h4 id="getmysocketid-">GetMySocketID()</h4>
 <pre class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> <span class="hljs-title">GetMySocketID</span>(<span class="hljs-params"></span>)</span></pre><p>this function returns a string of the current client socket-io id which can be used directly as a string</p>
 <p>e.g: -</p>
 <p><code>&quot;w2YTHXzcN2fJCuROAAAB&quot;</code></p>
-<hr>
+<p><strong>Returns</strong></p>
+<pre class="hljs"><span class="hljs-built_in">string</span></pre><hr>
 <h4 id="isvoicechatready-">IsVoiceChatReady()</h4>
 <pre class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> <span class="hljs-title">IsVoiceChatReady</span>(<span class="hljs-params"></span>)</span></pre><p>this function returns a string of whether the voice chat browser app is ready to be used or not</p>
 <p>e.g: -</p>
 <p><code>&quot;yes&quot;
 or
 &quot;no&quot;</code></p>
-<hr>
+<p><strong>Returns</strong></p>
+<pre class="hljs"><span class="hljs-built_in">string</span></pre><hr>
 <h4 id="mutemic-">MuteMic()</h4>
 <pre class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">MuteMic</span>(<span class="hljs-params"></span>)</span></pre><p>this function mutes your mic.</p>
 <hr>
@@ -868,36 +865,20 @@ or
 <pre class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">UnMuteMic</span>(<span class="hljs-params"></span>)</span></pre><p>this function unmutes your mic.</p>
 <hr>
 <h4 id="ismute-">IsMute()</h4>
-<pre class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">IsMute</span>(<span class="hljs-params"></span>)</span></pre><p>this function currently sends an alert to the browser with the status of the mic (mute or not). can be modified to return it instead</p>
-<p>return e.g: -</p>
-<pre class="hljs">{
-   <span class="hljs-attr">isMute</span>: <span class="hljs-literal">false</span>
-}</pre><hr>
+<pre class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">bool</span> <span class="hljs-title">IsMute</span>(<span class="hljs-params"></span>)</span></pre><p>this function returns a bool indicating whether if the mic is mute or not</p>
+<p><strong>Returns</strong></p>
+<pre class="hljs"><span class="hljs-built_in">bool</span></pre><hr>
 <h4 id="isspeaking-">IsSpeaking()</h4>
-<pre class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> <span class="hljs-title">IsSpeaking</span>(<span class="hljs-params"></span>)</span></pre><p>this function returns a JSON with the status of whether the current user is speaking or not regardless of whether the mic is mute or not</p>
-<p>return e.g: -</p>
-<pre class="hljs">{
-   <span class="hljs-attr">isSpeaking</span>: <span class="hljs-literal">true</span>
-}</pre><hr>
+<pre class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">bool</span> <span class="hljs-title">IsSpeaking</span>(<span class="hljs-params"></span>)</span></pre><p>this function returns bool of whether the current user is speaking or not regardless of whether the mic is mute or not</p>
+<p><strong>Returns</strong></p>
+<pre class="hljs"><span class="hljs-built_in">bool</span></pre><hr>
 <h4 id="getrooms-">GetRooms()</h4>
-<pre class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">GetRooms</span>(<span class="hljs-params"></span>)</span></pre><p>this function currently sends an alert to the browser of a JSON with a list of all the rooms the current client/player is in.</p>
-<p>(doesn&#39;t return it but this is the return and the code can be modified)
-return e.g: -</p>
-<pre class="hljs">{
-   <span class="hljs-string">&quot;rooms&quot;</span>:[
-     <span class="hljs-string">&quot;roomID&quot;</span>,
-     etc...
-   ]
-}</pre><hr>
+<pre class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;<span class="hljs-built_in">string</span>&gt; <span class="hljs-title">GetRooms</span>(<span class="hljs-params"></span>)</span></pre><p>this function returns a list of strings of the rooms the player is currently joined in</p>
+<p><strong>Returns</strong></p>
+<pre class="hljs">List&lt;<span class="hljs-built_in">string</span>&gt;</pre><hr>
 <h4 id="updateclientsinroom-string-roomid-">UpdateClientsInRoom(string roomID)</h4>
 <pre class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">UpdateClientsInRoom</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> roomID</span>)</span></pre><p>the function runs a process where it fetches the clients in a specified room and then triggers an event (onGetClientsInRoom) after a specified time.</p>
-<p>return e.g: -</p>
-<pre class="hljs">{
-  <span class="hljs-string">&quot;clientsInRoom&quot;</span>:[
-    <span class="hljs-string">&quot;client id&quot;</span>,
-    etc...
-  ]
-}</pre><hr>
+<hr>
 <h4 id="joinroom-string-roomid-">JoinRoom(string roomID)</h4>
 <pre class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">JoinRoom</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> roomID</span>)</span></pre><p>the function joins/creates and joins the player in the voice chat room</p>
 <hr>
@@ -920,29 +901,18 @@ return e.g: -</p>
 <pre class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">UnMuteAllClients</span>(<span class="hljs-params"></span>)</span></pre><p>locally unmutes all muted clients for the current client.</p>
 <hr>
 <h4 id="isotherclientmuted-string-clientid-">IsOtherClientMuted(string clientID)</h4>
-<pre class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">IsOtherClientMuted</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> clientID</span>)</span></pre><p>(currently doesn&#39;t return the JSON but it can be easily modified to do so).</p>
-<p>sends an alert to the browser with the status of &quot;is other client muted locally&quot;.</p>
-<p>return e.g: -</p>
-<pre class="hljs">{
-  <span class="hljs-string">&quot;isMuted&quot;</span>:<span class="hljs-literal">false</span>
-}</pre><hr>
+<pre class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-built_in">bool</span> <span class="hljs-title">IsOtherClientMuted</span>(<span class="hljs-params"><span class="hljs-built_in">string</span> clientID</span>)</span></pre><p>this function returns a bool indicating whether if the provided client is muted locally or not by the current user.</p>
+<p><strong>Returns</strong></p>
+<pre class="hljs"><span class="hljs-built_in">bool</span></pre><hr>
 <h4 id="getmutelist-">GetMuteList()</h4>
-<pre class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-keyword">void</span> <span class="hljs-title">GetMuteList</span>(<span class="hljs-params"></span>)</span></pre><p>(currently doesn&#39;t return the JSON but it can be easily modified to do so).</p>
-<p>sends an alert to the browser with a list of locally muted other clients.</p>
-<p>return e.g: -</p>
-<pre class="hljs">{
-  <span class="hljs-string">&quot;muteList&quot;</span>:[
-    <span class="hljs-string">&quot;clientID&quot;</span>,
-    etc...
-  ]
-}</pre><h3 id="private-methods">Private Methods</h3>
+<pre class="hljs"><span class="hljs-function"><span class="hljs-keyword">public</span> List&lt;<span class="hljs-built_in">string</span>&gt; <span class="hljs-title">GetMuteList</span>(<span class="hljs-params"></span>)</span></pre><p>returns a list of strings of all the locally muted other clients</p>
+<p><strong>Returns</strong></p>
+<pre class="hljs">List&lt;<span class="hljs-built_in">string</span>&gt;</pre><h3 id="private-methods">Private Methods</h3>
 <hr>
 <h4 id="getclientsinroom-">GetClientsInRoom()</h4>
-<pre class="hljs"><span class="hljs-function"><span class="hljs-keyword">private</span> <span class="hljs-built_in">string</span> <span class="hljs-title">GetClientsInRoom</span>(<span class="hljs-params"></span>)</span></pre><p>returns a list of the clients in a room that was prefetched from &quot;UpdateClientsInRoom&quot; function.</p>
-<p>return e.g: -</p>
-<pre class="hljs">{
-  <span class="hljs-string">&quot;clientsInRoom&quot;</span>: []
-}</pre><hr>
+<pre class="hljs"><span class="hljs-function"><span class="hljs-keyword">private</span> List&lt;<span class="hljs-built_in">string</span>&gt; <span class="hljs-title">GetClientsInRoom</span>(<span class="hljs-params"></span>)</span></pre><p>returns a list of the clients in a room that was prefetched from &quot;UpdateClientsInRoom&quot; function.</p>
+<p><strong>Returns</strong></p>
+<pre class="hljs">List&lt;<span class="hljs-built_in">string</span>&gt;</pre><hr>
 <h4 id="fetchclientsaftersometime-">FetchClientsAfterSomeTime()</h4>
 <pre class="hljs"><span class="hljs-function"><span class="hljs-keyword">private</span> IEnumerator <span class="hljs-title">FetchClientsAfterSomeTime</span>(<span class="hljs-params"></span>)</span></pre><p>this coroutine starts inside &quot;UpdateClientsInRoom&quot; to allow unity to wait for a portion of time before trying to get the clients of a room, after that time. it will run &quot;GetClientsInRoom&quot; function receiving the list and invoking the event &quot;onGetClientsInRoom&quot; that will notify subscribers with the data</p>
 <hr>
