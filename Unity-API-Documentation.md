@@ -34,35 +34,30 @@ and hence the current events.
 
 ### onGetClientsInRoom
 ```C#
-public UnityEvent<string> onGetClientsInRoom
+public UnityEvent<List<string>> onGetClientsInRoom
 ```
 this event will be triggered after some time from calling "UpdateClientsInRoom(string roomID)" function passing a JSON object with a list of the clients in a specified room as a string.
 
 example of returned string: -
 
-```javascript
-{
-  "clientsInRoom":[
-    "someOtherClientID",
-    ...
-  ]
-}
+**Returns**
+```C#
+List<string>
 ```
 
 ***
 
 ### onIsSpeaking
 ```C#
-public UnityEvent<string> onIsSpeaking
+public UnityEvent<bool> onIsSpeaking
 ```
 when invoked, returns a string of a JSON with the status of whether is the current client is talking or not.
 
 tip: this value can be used with other networking framework solutions(mirror, fishnet, smartfox, etc...) to send the player status to other in-game players.
 
-```javascript
-{
-  "isSpeaking": true
-}
+**Returns**
+```C#
+bool
 ```
 
 ## Methods
@@ -82,6 +77,11 @@ e.g: -
 "w2YTHXzcN2fJCuROAAAB"
 `
 
+**Returns**
+```C#
+string
+```
+
 ***
 
 #### IsVoiceChatReady()
@@ -98,6 +98,11 @@ e.g: -
 or
 "no"
 `
+
+**Returns**
+```C#
+string
+```
 
 ***
 
@@ -122,16 +127,13 @@ this function unmutes your mic.
 #### IsMute()
 
 ```C#
-public void IsMute()
+public bool IsMute()
 ```
-this function currently sends an alert to the browser with the status of the mic (mute or not). can be modified to return it instead
+this function returns a bool indicating whether if the mic is mute or not
 
-return e.g: -
-
-```javascript
-{
-   isMute: false
-}
+**Returns**
+```C#
+bool
 ```
 
 ***
@@ -139,16 +141,13 @@ return e.g: -
 #### IsSpeaking()
 
 ```C#
-public string IsSpeaking()
+public bool IsSpeaking()
 ```
-this function returns a JSON with the status of whether the current user is speaking or not regardless of whether the mic is mute or not
+this function returns bool of whether the current user is speaking or not regardless of whether the mic is mute or not
 
-return e.g: -
-
-```javascript
-{
-   isSpeaking: true
-}
+**Returns**
+```C#
+bool
 ```
 
 ***
@@ -156,20 +155,13 @@ return e.g: -
 #### GetRooms()
 
 ```C#
-public void GetRooms()
+public List<string> GetRooms()
 ```
-this function currently sends an alert to the browser of a JSON with a list of all the rooms the current client/player is in.
+this function returns a list of strings of the rooms the player is currently joined in
 
-(doesn't return it but this is the return and the code can be modified)
-return e.g: -
-
-```javascript
-{
-   "rooms":[
-     "roomID",
-     etc...
-   ]
-}
+**Returns**
+```C#
+List<string>
 ```
 
 ***
@@ -180,17 +172,6 @@ return e.g: -
 public void UpdateClientsInRoom(string roomID)
 ```
 the function runs a process where it fetches the clients in a specified room and then triggers an event (onGetClientsInRoom) after a specified time.
-
-return e.g: -
-
-```javascript
-{
-  "clientsInRoom":[
-    "client id",
-    etc...
-  ]
-}
-```
 
 ***
 
@@ -260,17 +241,14 @@ locally unmutes all muted clients for the current client.
 #### IsOtherClientMuted(string clientID)
 
 ```C#
-public void IsOtherClientMuted(string clientID)
+public bool IsOtherClientMuted(string clientID)
 ```
-(currently doesn't return the JSON but it can be easily modified to do so).
 
-sends an alert to the browser with the status of "is other client muted locally".
+this function returns a bool indicating whether if the provided client is muted locally or not by the current user.
 
-return e.g: -
-```javascript
-{
-  "isMuted":false
-}
+**Returns**
+```C#
+bool
 ```
 
 ***
@@ -278,20 +256,14 @@ return e.g: -
 #### GetMuteList()
 
 ```C#
-public void GetMuteList()
+public List<string> GetMuteList()
 ```
-(currently doesn't return the JSON but it can be easily modified to do so).
 
-sends an alert to the browser with a list of locally muted other clients.
+returns a list of strings of all the locally muted other clients
 
-return e.g: -
-```javascript
-{
-  "muteList":[
-    "clientID",
-    etc...
-  ]
-}
+**Returns**
+```C#
+List<string>
 ```
 
 ### Private Methods
@@ -301,15 +273,13 @@ return e.g: -
 #### GetClientsInRoom()
 
 ```C#
-private string GetClientsInRoom()
+private List<string> GetClientsInRoom()
 ```
 returns a list of the clients in a room that was prefetched from "UpdateClientsInRoom" function.
 
-return e.g: -
-```javascript
-{
-  "clientsInRoom": []
-}
+**Returns**
+```C#
+List<string>
 ```
 
 ***
