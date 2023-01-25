@@ -2,60 +2,55 @@
 
 On this page, there are two parts that are essential for the voice chat application to work properly. the first is hosting the voice chat server. the second is adding the files in your unity game and setting up some variables.
 
+First, import the asset to your game. This will add all the files needed to get you started.
 
+## Setting it up with your unity game
+
+After importing the asset, the main script that you need to learn about and use will go by the name "**VoiceChatHandler.cs**", this script is singelton, so you can use it directly in any class you make. 
+
+The important thing will be modifiying two variables in the script.
+
+```C#
+public string socketServer = "/";
+public string clientJSFileURL = "/";
+```
+
+The first variable should contain the link to your website "https://your-server-domain", for it is used to communicate with the websocket server.
+
+The second varialbe will be the link to the js file that contains the voice chat logic that is going to be imported into the webpage by unity. this file is important so that unity can start communicating with the server.
+
+the link for the file should go like this (https://your-server-domain/js/client.js)
 
 ## Hosting the server
 
-To begin with, clone the repo using
-
-``
-git clone https://github.com/Gold3nEagle/UnityWebGLVoiceChatServer-Socket.io.git
-``
-
-pre-requisites: -
+pre-requisites (for the hosting device): -
 
 - npm
 - node
-- nodemon (optional)
 - server running on HTTPS (required to get access to the mic)
+
+note: hosting the server on heroku provides an easier experince and the server comes with an ssl.
+
+To begin with, the server can be found in "Assets/WebGLVoiceChat/VoiceChatServer.zip" from the imported asset, this zip includes the server that can be started using node js.
+
+the link below shows how to host the server on heroku. However, you can host ther server on any platform of your choice.
+[How to deploy to heroku](https://www.youtube.com/watch?v=DQk3zJlY-eE)
 
 to run the server use
 
 ``
-npm run dev
+npm run start
 ``
 
-## Importing unity files
+after setting up the server and hosting it, accessing the main page of the website will provide you with a page of the demo to check the asset.
 
-### giving access to the unity instance to the browser (optional)
-
-_**this is optional**_, for, at the moment, the browser does not need to send messages to the unity game instance
-
-also, make sure that you store your "unityInstance" variable on the "window" variable
-like this
-
-note: this section of the code is found with the build of the WebGL game
-```javascript
-  }).then((unityInstance) => {
-          window.unityInstance = unityInstance;
-```
-
-
-### adding the .jslib file and using the VoiceChatHandler.cs Class
-
-The two files in the UnityFiles Folder are meant to be used in your unity game.
-
-Those two files will allow unity to communicate with the browser where the .jslib acts as the bridge and the WebVoiceChatHandler act as the interface to use the features.
-
-The VoiceChatHandler class only requires the user to provide two links, the first link will be used to connect to the server. The other link will be used to fetch the client.js file from the server which contains the browser logic to start the voice chat.
-
-for more info check the wiki of the repo about the files.
+you can also check the demo [here](https://geagle.tech/unity-webgl-voice-chat/).
 
 ## How The voice chat starts
 
 After adding the unity files to your game and providing the required URLs, you will have access to all the functionality of the voice chat library. However, none of them will be functional in the editor, for the functionality itself is executed on the browser with JavaScript.
 
-the way it works is that when the game loads, the VCH (VoiceChatHandler) will instantiate itself and stay persistent throughout the game. On Start, the class will use the provided URLs from the class (in the editor) to do two things.
+the way it works is that when the game loads, the VCH (VoiceChatHandler) will instantiate itself (if used) and stay persistent throughout the game. On Start, the class will use the provided URLs from the class (in the editor) to do two things.
 
 the first URL will be used as the domain to connect to the voice chat server, and the other URL will be the location of the voice chat script which will be used to append the script to the current HTML page by unity.
 

@@ -717,44 +717,43 @@ if("undefined"==typeof jQuery)throw new Error("Bootstrap's JavaScript requires j
 <p class="page" id="Getting-Started"></p><h1>Getting-Started</h1>
 <h1 id="installation">Installation</h1>
 <p>On this page, there are two parts that are essential for the voice chat application to work properly. the first is hosting the voice chat server. the second is adding the files in your unity game and setting up some variables.</p>
+<p>First, import the asset to your game. This will add all the files needed to get you started.</p>
+<h2 id="setting-it-up-with-your-unity-game">Setting it up with your unity game</h2>
+<p>After importing the asset, the main script that you need to learn about and use will go by the name &quot;<strong>VoiceChatHandler.cs</strong>&quot;, this script is singelton, so you can use it directly in any class you make. </p>
+<p>The important thing will be modifiying two variables in the script.</p>
+<pre class="hljs"><span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> socketServer = <span class="hljs-string">&quot;/&quot;</span>;
+<span class="hljs-keyword">public</span> <span class="hljs-built_in">string</span> clientJSFileURL = <span class="hljs-string">&quot;/&quot;</span>;</pre><p>The first variable should contain the link to your website &quot;<a href="https://your-server-domain&quot;">https://your-server-domain&quot;</a>, for it is used to communicate with the websocket server.</p>
+<p>The second varialbe will be the link to the js file that contains the voice chat logic that is going to be imported into the webpage by unity. this file is important so that unity can start communicating with the server.</p>
+<p>the link for the file should go like this (<a href="https://your-server-domain/js/client.js">https://your-server-domain/js/client.js</a>)</p>
 <h2 id="hosting-the-server">Hosting the server</h2>
-<p>To begin with, clone the repo using</p>
-<p><code>git clone https://github.com/Gold3nEagle/UnityWebGLVoiceChatServer-Socket.io.git</code></p>
-<p>pre-requisites: -</p>
+<p>pre-requisites (for the hosting device): -</p>
 <ul>
 <li>npm</li>
 <li>node</li>
-<li>nodemon (optional)</li>
 <li>server running on HTTPS (required to get access to the mic)</li>
 </ul>
+<p>note: hosting the server on heroku provides an easier experince and the server comes with an ssl.</p>
+<p>To begin with, the server can be found in &quot;Assets/WebGLVoiceChat/VoiceChatServer.zip&quot; from the imported asset, this zip includes the server that can be started using node js.</p>
+<p>the link below shows how to host the server on heroku. However, you can host ther server on any platform of your choice.
+<a href="https://www.youtube.com/watch?v=DQk3zJlY-eE">How to deploy to heroku</a></p>
 <p>to run the server use</p>
-<p><code>npm run dev</code></p>
-<h2 id="importing-unity-files">Importing unity files</h2>
-<h3 id="giving-access-to-the-unity-instance-to-the-browser-optional-">giving access to the unity instance to the browser (optional)</h3>
-<p><em><strong>this is optional</strong></em>, for, at the moment, the browser does not need to send messages to the unity game instance</p>
-<p>also, make sure that you store your &quot;unityInstance&quot; variable on the &quot;window&quot; variable
-like this</p>
-<p>note: this section of the code is found with the build of the WebGL game</p>
-<pre class="hljs">  }).then(<span class="hljs-function">(<span class="hljs-params">unityInstance</span>) =&gt;</span> {
-          <span class="hljs-built_in">window</span>.unityInstance = unityInstance;</pre><h3 id="adding-the-jslib-file-and-using-the-voicechathandler-cs-class">adding the .jslib file and using the VoiceChatHandler.cs Class</h3>
-<p>The two files in the UnityFiles Folder are meant to be used in your unity game.</p>
-<p>Those two files will allow unity to communicate with the browser where the .jslib acts as the bridge and the WebVoiceChatHandler act as the interface to use the features.</p>
-<p>The VoiceChatHandler class only requires the user to provide two links, the first link will be used to connect to the server. The other link will be used to fetch the client.js file from the server which contains the browser logic to start the voice chat.</p>
-<p>for more info check the wiki of the repo about the files.</p>
+<p><code>npm run start</code></p>
+<p>after setting up the server and hosting it, accessing the main page of the website will provide you with a page of the demo to check the asset.</p>
+<p>you can also check the demo <a href="https://geagle.tech/unity-webgl-voice-chat/">here</a>.</p>
 <h2 id="how-the-voice-chat-starts">How The voice chat starts</h2>
 <p>After adding the unity files to your game and providing the required URLs, you will have access to all the functionality of the voice chat library. However, none of them will be functional in the editor, for the functionality itself is executed on the browser with JavaScript.</p>
-<p>the way it works is that when the game loads, the VCH (VoiceChatHandler) will instantiate itself and stay persistent throughout the game. On Start, the class will use the provided URLs from the class (in the editor) to do two things.</p>
+<p>the way it works is that when the game loads, the VCH (VoiceChatHandler) will instantiate itself (if used) and stay persistent throughout the game. On Start, the class will use the provided URLs from the class (in the editor) to do two things.</p>
 <p>the first URL will be used as the domain to connect to the voice chat server, and the other URL will be the location of the voice chat script which will be used to append the script to the current HTML page by unity.</p>
 <p>when the file loads, the class will be ready to be used.</p>
 <p class="page" id="Home"></p><h1>Home</h1>
 <h1 id="unity-webgl-voice-chat-solution">Unity Webgl Voice Chat Solution</h1>
-<p>Welcome to the UnityWebGLVoiceChatServer-Socket.io wiki!</p>
-<p>this wiki is meant to explain the mechanism of how does the software work, document it&#39;s functions and help you getting started.</p>
+<p>Welcome to the Docs of the Webgl Voice Chat Solution</p>
+<p>this Documentation is meant to explain the mechanism of how does the software work, document it&#39;s functions and help you getting started.</p>
 <p>to get started check the getting started page.</p>
 <hr>
 <p>to learn more about the functions and functionality of the solution check the docs section</p>
 <h1 id="how-it-works">How it works</h1>
-<p>in simple terms, the voice chat is a separate application that runs on your browser, so, it can be used standalone. the twist is that scripts were written in unity, allowing communication between unity and the voice chat application itself.</p>
+<p>in simple terms, the voice chat is a separate application that runs on your browser, so, it can be used standalone. the twist is that scripts were written in unity, allowing communication between unity and the voice chat application itself (the js file from the server).</p>
 <p>so unity communicates with it while the application handles rooms, and people, and fetches the voice from the microphone with transmission over the network.</p>
 <p>the reason it was built this way is that the in-availability of access to the mic in unity for WebGL, alongside the limitation of only TCP/HTTP protocol on the browser prevents the development of a functional voice chat within the unity game on the browser and thus the current solution.</p>
 <p class="page" id="JavaScript-API-Documentation"></p><h1>JavaScript-API-Documentation</h1>
@@ -923,13 +922,6 @@ or
         </div> <!-- /div.col-md-9 -->
       </div> <!-- /div.row -->
     </div> <!-- /div.container -->
-    <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.7/lib/darkmode-js.min.js"></script>
-<script>
-  function addDarkmodeWidget() {
-    new Darkmode().showWidget();
-  }
-  window.addEventListener('load', addDarkmodeWidget);
-</script>
   </body>
   <script>
     $('body').scrollspy({ target: '#scroll-spy', offset: 40 })
