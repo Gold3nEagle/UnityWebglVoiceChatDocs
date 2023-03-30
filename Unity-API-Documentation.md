@@ -18,19 +18,23 @@ public string clientJSFileURL
 ```
 the URL link to the client js file that contains the voice chat logic for the browser. This will be used to append the code from the URL to the current page the game is hosted on.
 
+### clientsInCurrentRoom
+```C#
+private List<string> clientsInCurrentRoom;
+```
+holds the list of of clients in the current joined room. (will be updated automatically from the browser).
+
+***
+### isSpeaking
+```C#
+private bool isSpeaking;
+```
+an indicator of whether the client is speaking or not. (will be updated automatically from the browser).
+
+
 ***
 
 ## Events
-
-**\*\*Important Note\*\***
-
-the reason why the class contains events is that some functionality requires asynchronous processes to run in order to fetch some data over the network and since unity doesn't support asynchronous functions or to say more accurately. It can't wait for an async function from JavaScript to return a value, for there is no direct way for the game (C#) to know that such a process is running in a different language, and thus can't wait for an undefined amount of time between two languages.
-
-a solution for this would be to allow the browser to send messages to unity which is [possible](https://docs.unity3d.com/Manual/webgl-interactingwithbrowserscripting.html#:~:text=src/library*.-,Code%20visibility,-The%20recommended%20approach), but in order to achieve that, a modification on the game JavaScript code needs to be done every time a build is done since unity 2019 and newer which adds more steps to the setup alongside exposing all of unity current GameObjects to be called from the browser with their attached scripts functions (Security Concern).
-
-and hence the current events.
-
-***
 
 ### onGetClientsInRoom
 ```C#
@@ -138,6 +142,15 @@ bool
 
 ***
 
+#### SetIsSpeaking(string isSpeaking)
+
+```C#
+public void SetIsSpeaking(string isSpeaking)
+```
+
+sets the is speaking paramater and invokes the onIsSpeaking event. (the browser will update the list using the function)
+
+***
 #### IsSpeaking()
 
 ```C#
@@ -166,12 +179,32 @@ List<string>
 
 ***
 
+#### SetRooms(string roomsJson)
+
+```C#
+public void SetRooms(string roomsJson)
+```
+sets the list of the rooms the client is in.
+
+***
+
 #### UpdateClientsInRoom(string roomID)
 
 ```C#
 public void UpdateClientsInRoom(string roomID)
 ```
-the function runs a process where it fetches the clients in a specified room and then triggers an event (onGetClientsInRoom) after a specified time.
+the function runs a process where it fetches the clients in a specified room, than the browser will update the list using "SetClientsInRoom" function
+
+***
+
+#### SetClientsInRoom(string clients)
+
+```C#
+public void SetClientsInRoom(string clients)
+```
+
+sets the list of clients in the current room the client is in. (the browser will excute this function)
+
 
 ***
 
@@ -266,41 +299,3 @@ returns a list of strings of all the locally muted other clients
 List<string>
 ```
 
-### Private Methods
-
-***
-
-#### GetClientsInRoom()
-
-```C#
-private List<string> GetClientsInRoom()
-```
-returns a list of the clients in a room that was prefetched from "UpdateClientsInRoom" function.
-
-**Returns**
-```C#
-List<string>
-```
-
-***
-
-#### FetchClientsAfterSomeTime()
-
-```C#
-private IEnumerator FetchClientsAfterSomeTime()
-```
-this coroutine starts inside "UpdateClientsInRoom" to allow unity to wait for a portion of time before trying to get the clients of a room, after that time. it will run "GetClientsInRoom" function receiving the list and invoking the event "onGetClientsInRoom" that will notify subscribers with the data
-
-***
-
-#### IsSpeakingChecker()
-
-```C#
-private IEnumerator IsSpeakingChecker()
-```
-this coroutine starts at the beginning of the game (SingletonStarted) function. It periodically updates the status of the is speaking using the trigger below.
-
-```C#
-onIsSpeaking?.Invoke(IsSpeaking());
-```
-any game object can subscribe to it to see if the player/client is currently speaking or not.

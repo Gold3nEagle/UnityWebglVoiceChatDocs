@@ -8,12 +8,16 @@ First, import the asset to your game. This will add all the files needed to get 
 
 After importing the asset, the main script that you need to learn about and use will go by the name "**VoiceChatHandler.cs**", this script is singelton, so you can use it directly in any class you make. 
 
-The important thing will be modifiying two variables in the script.
+Tip: just make sure to add this script on a gameobject for the first scene, this is preferable to ensure running "SingletonAwakened" when your game start. this function initializes the voicechat script that will be loaded on the webpage that host the game.
+
+the important thing that will need to change on the script editor will be the modification of two variables in the.
 
 ```C#
 public string socketServer = "/";
 public string clientJSFileURL = "/";
 ```
+
+![the voice chat handler script in the editor](./Images/VCHEditor.png)
 
 The first variable should contain the link to your website "https://your-server-domain", for it is used to communicate with the websocket server.
 
@@ -27,7 +31,7 @@ pre-requisites (for the hosting device): -
 
 - npm
 - node
-- server running on HTTPS (required to get access to the mic)
+- server running on HTTPS (required to get access to the mic, this is enforced from the browsers)
 
 note: hosting the server on heroku provides an easier experince and the server comes with an ssl.
 
@@ -42,9 +46,17 @@ to run the server use
 npm run start
 ``
 
-after setting up the server and hosting it, accessing the main page of the website will provide you with a page of the demo to check the asset.
+after setting up the server and hosting it, accessing the main page of the website will be empty but the server is being hosted.
 
 you can also check the demo [here](https://geagle.tech/unity-webgl-voice-chat/).
+
+## Setting up the script that will load the unity instance in the browser
+
+starting from the update 0.7.0 the voice chat handler asset now uses two way communication. so the browser needs to have access to the unity instance.
+
+in order to do this you need to modify the index.html file that comes with the webgl build where this line needs to be added
+
+![the added line in the script tag of the index.html file](./Images/ScriptModification.png)
 
 ## How The voice chat starts
 
