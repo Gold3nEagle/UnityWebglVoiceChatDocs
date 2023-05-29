@@ -43,14 +43,14 @@ the link below shows how to host the server on heroku. However, you can host the
 to run the server use
 
 ``
-npm run start
+npm run prod
 ``
 
 after setting up the server and hosting it, accessing the main page of the website will be empty but the server is being hosted.
 
 you can also check the demo [here](https://geagle.tech/unity-webgl-voice-chat/).
 
-## Setting up the script that will load the unity instance in the browser
+## Allow Two way communitcation
 
 starting from the update 0.7.0 the voice chat handler asset now uses two way communication. so the browser needs to have access to the unity instance.
 

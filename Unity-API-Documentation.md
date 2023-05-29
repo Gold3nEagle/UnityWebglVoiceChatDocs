@@ -18,16 +18,24 @@ public string clientJSFileURL
 ```
 the URL link to the client js file that contains the voice chat logic for the browser. This will be used to append the code from the URL to the current page the game is hosted on.
 
+***
 ### clientsInCurrentRoom
 ```C#
-private List<string> clientsInCurrentRoom;
+private List<string> clientsInCurrentRoom
 ```
 holds the list of of clients in the current joined room. (will be updated automatically from the browser).
 
 ***
+### availableMicrophones
+```C#
+private List<Microphone> availableMicrophones
+```
+stores a list of the availabe microphones
+
+***
 ### isSpeaking
 ```C#
-private bool isSpeaking;
+private bool isSpeaking
 ```
 an indicator of whether the client is speaking or not. (will be updated automatically from the browser).
 
@@ -36,13 +44,11 @@ an indicator of whether the client is speaking or not. (will be updated automati
 
 ## Events
 
-### onGetClientsInRoom
+### OnClientsInRoom
 ```C#
-public UnityEvent<List<string>> onGetClientsInRoom
+public UnityEvent<List<string>> OnClientsInRoom
 ```
-this event will be triggered after some time from calling "UpdateClientsInRoom(string roomID)" function passing a JSON object with a list of the clients in a specified room as a string.
-
-example of returned string: -
+this event will be triggered when the browser sends back the list of clients in the room
 
 **Returns**
 ```C#
@@ -63,6 +69,47 @@ tip: this value can be used with other networking framework solutions(mirror, fi
 ```C#
 bool
 ```
+
+***
+
+### OnAvailableMicrophones
+```C#
+public UnityEvent<List<Microphone>> OnAvailableMicrophones
+```
+this event is triggered when the browser sends back a list of available microphones (audioinput)
+
+**Returns**
+```C#
+List<Microphone>
+```
+
+***
+
+### OnCanAccessMicrophone
+```C#
+public UnityEvent<bool> OnCanAccessMicrophone
+```
+this event is triggered when the browser sends back a response for whethere if you the player/user have provided access to the voice chat script.
+
+**Returns**
+```C#
+bool
+```
+
+***
+
+### OnMessageReceived
+```C#
+public UnityEvent<string,string> OnMessageReceived
+```
+this event is triggered when the browser sends back a response with a message received. th first parameter represents the clientID who sent the message and the second parameter represents the actual message itself.
+
+**Returns**
+```C#
+<string, string>
+```
+
+***
 
 ## Methods
 
@@ -164,13 +211,55 @@ bool
 ```
 
 ***
+#### GetAvailableMicrophones()
+```C#
+public void GetAvailableMicrophones()
+```
+sends a request to the browser the fetch all the available microphones.
+the resoponse is sent back to "SetAvailableMicrophones()" function.
+
+***
+#### SetAvailableMicrophones()
+```C#
+public void SetAvailableMicrophones(string microphonesJson)
+```
+this funcition is called by the browser which sends back the list of microphones fetched.
+
+the function itself populates "availableMicrophones" variable and triggers the "OnAvailableMicrophones" event, sending the list to whatever function is listening to it.
+
+***
+#### SetCurrentMicrophone()
+```C#
+public void SetCurrentMicrophone(Microphone microphone)
+```
+this function sends a request to the browser to change the currently used microphone from the browser. it takes a "VoiceChatSolution.Microphone" struct as a parameter.
+
+***
+#### CanAccessMicrophone()
+```C#
+public void CanAccessMicrophone()
+```
+sends a request to the browser about whether the browser has access to the microphone or not. the resoponse is set back in "CanAccessMicrophoneResponse" function.
+
+***
+#### CanAccessMicrophoneResponse()
+```C#
+public void CanAccessMicrophoneResponse(string canAccess)
+```
+this function is called by the browser where it is provided with an object that holds a boolean of whether the browser has access or not.
+
+this function also triggers "OnCanAccessMicrophone" event sending the result back to whatever function is listening to it.
+
+***
 
 #### GetRooms()
 
 ```C#
 public List<string> GetRooms()
 ```
-this function returns a list of strings of the rooms the player is currently joined in
+this function returns a list of strings of the rooms the player is currently joined in.
+
+furthermore, it refreshes the list of rooms. the new list of rooms is then set by browser through "SetRooms" function.
 
 **Returns**
 ```C#
@@ -203,7 +292,9 @@ the function runs a process where it fetches the clients in a specified room, th
 public void SetClientsInRoom(string clients)
 ```
 
-sets the list of clients in the current room the client is in. (the browser will excute this function)
+sets the list of clients in the current room the user/player is in. (the browser will excute this function)
+
+the event "OnClientsInRoom" is triggered with list of the clients.
 
 
 ***
@@ -220,7 +311,7 @@ the function joins/creates and joins the player in the voice chat room
 #### JoinOneRoom(string roomID)
 
 ```C#
-public void JoinRoom(string roomID)
+public void JoinOneRoom(string roomID)
 ```
 same as the one above but it makes sure that you leave rooms before joining the given one
 
@@ -299,3 +390,37 @@ returns a list of strings of all the locally muted other clients
 List<string>
 ```
 
+***
+#### SendChatMessage(string message)
+```C#
+public void SendChatMessage(string message)
+```
+takes a string as the message and sends it to the browser to be sent to other clients of the same room.
+
+***
+#### ReceiveChatMessage(string jsonMessage)
+```C#
+public void ReceiveChatMessage(string jsonMessage)
+```
+
+this function is it triggerd by the browser which sends any message that is intended for the current client / player.
+
+this function also triggers the "OnMessageReceived" event sending the data to whatever function is listening to it.
+
+***
+***
+
+## Structures
+
+### Microphone
+```C#
+public struct Microphone
+{
+    public string deviceId;
+    public string kind;
+    public string label;
+    public string groupId;
+}
+```
+
+this structure is used to allocate the microphone meta data within the VoiceChatHandler Script.
