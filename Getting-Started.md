@@ -67,3 +67,25 @@ the way it works is that when the game loads, the VCH (VoiceChatHandler) will in
 the first URL will be used as the domain to connect to the voice chat server, and the other URL will be the location of the voice chat script which will be used to append the script to the current HTML page by unity.
 
 when the file loads, the class will be ready to be used.
+
+## Admin Panel
+
+Since update 0.8.0, there is an admin panel for the running server that can be accessed through "your-domain-name/Admin" e.g "localhost/Admin" the "A" in "Admin" is case sensitive.
+
+once you enter the page, you should fill these three parameters
+
+![The Admin Panel page](./Images/Admin-Panel.png)
+
+the first two should be somehting similar to the image above (the server url will change based on where it is hosted).
+
+the password is defined from the server code, and should be chnaged from it
+
+![The Admin Panel page](./Images/AdminPanelPasswordChange.png)
+
+the image above showcases where the password can be changed. this code section can be found in the "index.js" file in the server zip.
+
+the password should be encrypted with bcrypt and then inserted in the password property as in the picture above.
+
+you can use a website like [bcrypt-generator](https://bcrypt-generator.com/) which will encrypt your password with the needed algorithm.
+
+to learn more about the admin panel you can visit [this link](https://socket.io/docs/v4/admin-ui/).
